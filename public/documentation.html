@@ -1,157 +1,114 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>myFlix</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <title>My Flix</title>
   </head>
   <body>
-    <h1>Documentation</h1>
-    <p>This web application will provide users with access to information
-    about different movies, directors, and genres. Users will be able to sign
-    up, update their personal information, and create a list of their favorite
-    movies.
-    </p>
-    <table class="content-table" style="width: 1000px;">
+    <h1>myFlix</h1>
+    <p>This app will provide you information about different movies, directors, and genres. You will be able to sign up, update your personal information, and create a list of your favorite movies.</p>
+    <table>
       <thead>
         <tr>
-          <th style="width: 120px;">Request</th>
-          <th>URL</th>
-          <th>HTTP Method</th>
-          <th style="width: 100px;">Request Body Data Format</th>
-          <th>Response Body Data Format</th>
+          <th>Description</th>
+          <th>Endpoint URL</th>
+          <th>Type</th>
+          <th>Request body</th>
+          <th>Response body</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Get a list of ALL movies to the user</td>
+          <td>Get a list of all movies</td>
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about all the movies</td>
+          <td>
+            JSON object holding data about all the movies, containing the title, genre and director's name property. Example:<br>
+            {<br>"Title": "The Terminator",<br> "Description"....": <br> "Genre": "Sci-Fi",<br> Name :"James Cameron"<br>},
+          </td>
         </tr>
         <tr>
           <td>Get data about a single movie by title</td>
           <td>/movies/[Title]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a single movie, containing a
-            title, description, genre property, director property and image.
-            Example: <p style="color:blue">
-              {
-                "Genre": {
-                    "Name": "Thriller",
-                    "Description": "This is a suspense thriller movie which engages audience with many knots"
-                },
-                "Director": {
-                    "Name": "Jeethu Joseph",
-                    "Bio": "Jeethu Joseph is an Indian film director and screenwriter, who works in Malayalam cinema and has also worked in a few Tamil and Hindi films.",
-                    "Birth": "1972"
-
-                },
-                "Actors": [],
-                "_id": "5d9bab4307ab30237c44c353",
-                "Title": "Papanasam",
-                "Description": "The film tells the story of Suyambu, a middle-class cable TV operator, and his family. They come under suspicion when Varun, the son of the Inspector-general of police (IG), goes missing soon after sexually harassing Suyambu's elder daughter. The rest of the film reveals how Varun disappeared and what Suyambu does to keep his family from going to prison.",
-                "ImagePath": "Papanasam.png",
-                "Featured": true
-              }
-            </p>
+          <td>
+            JSON object holding data about a single movie.
           </td>
         </tr>
         <tr>
-          <td>Get data about a movie genre</td>
-          <td>/movies/genres/[Name]</td>
+          <td>Get data about a movie genre by movie title</td>
+          <td>/movies/genres/[Title]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a movie genre.
-            Example: <p style="color:blue">
-              {
-                "Name": "Action",
-                "Description": "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, and frantic chases."
-              }
-            </p>
+          <td>
+            JSON object holding data about a movie genre.
           </td>
         </tr>
         <tr>
-          <td>Get data about a director</td>
+          <td>Get data about a director by name</td>
           <td>/movies/directors/[Name]</td>
           <td>GET</td>
           <td>None</td>
-          <td>A JSON object holding data about a director.
-            Example: <p style="color:blue">
-              {
-                "Name": "Shankar Shanmugam",
-                "Bio": "Shankar, is an Indian film maker who predominantly works in Tamil cinema. He made his debut as a director in the film Gentleman (1993), for which he won the Filmfare Best Director Award and the Tamil Nadu State Film Award for Best Director.",
-                "Birth": "1963"
-              }
-            </p>
+          <td>
+            JSON object holding data about a director.
           </td>
         </tr>
         <tr>
-          <td>Add new user accounts</td>
+          <td>Add a new user</td>
           <td>/users</td>
           <td>POST</td>
-          <td>A JSON object holding data about the user to add, structured like:
-            <p style="color: blue">
-              {
-                "Username" : "helloworld123456",
-                "Password" : "password123456",
-                "Email" : "example123456@gmail.com",
-                "Birthday" : "1970-03-21"
-              }
-            </p>
+          <td>
+            JSON object holding data about the user to add. Example:<br>
+              { <br>"Username": "arunkumar_rl",<br>"Password": "arunkumarrl",<br> "Email":
+              "arunkumar_rl@yahoo.com", <br>"Birthday": "1988-06-16" <br>}
           </td>
-          <td>A JSON object holding data about the user that was added, including an ID:
-            <p style="color:blue">
-              {
-                "FavoriteMovies": [],
-                "_id": "5d9d82069bc166069f68524d",
-                "Username": "helloworld123456",
-                "Password": "password123456",
-                "Email": "example123456@gmail.com",
-                "Birthday": "1970-03-21T00:00:00.000Z",
-                "__v": 0
-              }
-            </p>
+          <td>
+            JSON object holding data about the user that was add, including an ID. Example:<br>
+              {<br> "Favorites": [],<br> "_id": "5d7cc5e9a3d1dc4290f30036",<br> "Username": "arunkumar_rl",<br> "Password": "arunkumarrl",<br> "Email": "arunkumar_rl@yahoo.com",<br> "Birthday": "1988-06-16T00:00:00.000Z",<br>}
           </td>
         </tr>
         <tr>
-          <td>Update a user's information</td>
+          <td>Update a user information</td>
           <td>/users/[Username]</td>
           <td>PUT</td>
-          <td>A JSON object holding data about the user to add, structured like:
-            <p style="color: blue">
-              {
-                "Username" : "Newusername1231561",
-                "Password" : "Newpassword3486198",
-                "Email" : "Newemail16513651@gmail.com",
-                "Birthday" : "1980-10-15"
-              }
-            </p>
+          <td>
+            JSON object holding data about the user to add. Example:<br>
+            {<br> "Username": "arunkumar_rl"(required),<br> "Password": "arunkumarrl"(required),<br> "Email": "arunkumar_rl.yahoo.com"(required),<br> "Birthday": "1988-06-16"<br>}
           </td>
-          <td>A text message indicating the user's information was updated</td>
+          <td>JSON object holding data that was newly updated.</td>
         </tr>
         <tr>
-          <td>Add movies to user's list of favorites</td>
+          <td>Add a movie to the list of favorites</td>
           <td>/users/[Username]/Movies/[MovieID]</td>
           <td>POST</td>
-          <td>None</td>
-          <td>A message indicating the movie was added to the user's list of favorites</td>
+          <td>
+            JSON object holding data about a movie which users like to add to their list of favorites.
+          </td>
+          <td>
+            JSON object holding data about the movie that was added to the list of favorite.
+          </td>
         </tr>
         <tr>
-          <td>Remove movies from user's list of favorites</td>
+          <td>Delete a movie from the list of favorites</td>
           <td>/users/[Username]/Movies/[MovieID]</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>A message indicating the movie was removed from the user's list of favorites</td>
+          <td>
+            A text message indicating the movie that was removed from the list of favorites.
+          </td>
         </tr>
         <tr>
-          <td>Remove user accounts</td>
+          <td>Remove a user</td>
           <td>/users/[Username]</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>A message indicating the user's account was deleted</td>
+          <td>A text message indicating the user who was removed</td>
         </tr>
       </tbody>
     </table>
