@@ -37,17 +37,42 @@
           <td>/movies/[Title]</td>
           <td>GET</td>
           <td>None</td>
-          <td>
-            JSON object holding data about a single movie.
-          </td>
+          <td>A JSON object holding data about a single movie, containing a
+            title, description, genre property, director property and image.
+            Example:
+            {
+               "Genre": {
+                   "Name": "Thriller",
+                   "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involvesexcitement and suspense in the audience."
+               },
+               "Director": {
+                   "Name": "Jonathan Demme",
+                   "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
+                   "Birth": "1944",
+                   "Death": "2017"
+               },
+               "Actors": [],
+               "_id": "5d9bab4307ab30237c44c353",
+               "Title": "Silence of the Lambs",
+               "Description": "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
+               "ImagePath": "silenceofthelambs.png",
+               "Featured": true
+             }
+           </p>
+         </td>
         </tr>
         <tr>
-          <td>Get data about a movie genre by movie title</td>
-          <td>/movies/genres/[Title]</td>
+          <td>Get data about a movie genre by genre name</td>
+          <td>/movies/genres/[Name]</td>
           <td>GET</td>
           <td>None</td>
           <td>
             JSON object holding data about a movie genre.
+            Example:
+            {
+              "Name": "Action",
+                "Description": "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, and frantic chases."
+              }
           </td>
         </tr>
         <tr>
@@ -57,6 +82,11 @@
           <td>None</td>
           <td>
             JSON object holding data about a director.
+            Example:
+            {"Name": "Jon Favreau",
+                "Bio": "Jonathan Favreau is an American actor, director, producer, screenwriter, and chef.",
+                "Birth": "1966"
+              }
           </td>
         </tr>
         <tr>
