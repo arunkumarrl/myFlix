@@ -10,6 +10,9 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const passport = require('passport');
 require('./passport');
+const cors = require('cors');
+app.use(cors());
+const { check, validationResult } = require('express-validator');
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true,useUnifiedTopology: true});
 
@@ -130,7 +133,24 @@ app.get(
 
 // Add a user
 
-app.post('/users', function(req, res) {
+app.post('/users',
+// Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
+  [check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()],(req, res) => {
+
+  // check the validation object for errors
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  var hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username : req.body.Username })
   .then(function(user) {
     if (user) {
@@ -139,7 +159,7 @@ app.post('/users', function(req, res) {
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
@@ -244,6 +264,7 @@ app.delete(
 );
 
 // Listen for requests on port 2030
-app.listen(2030, () => {
-  console.log(`Your app is listening on port 2030`);
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+console.log("Listening on Port 3000");
 });
