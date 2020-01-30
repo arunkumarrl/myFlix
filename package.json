@@ -28,3 +28,11 @@
   },
   "description": ""
 }
+{
+  "name": "myflixdb",
+  "description": "a really cool app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "8.10.0"
+  }
+}

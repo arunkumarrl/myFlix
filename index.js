@@ -11,16 +11,21 @@ const Users = Models.User;
 const passport = require('passport');
 require('./passport');
 const cors = require('cors');
-app.use(cors());
 const { check, validationResult } = require('express-validator');
 
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true,useUnifiedTopology: true});
-mongoose.connect('mongodb+srv://myflixdb:Myflixdb2112%21@myflixdb-enhrc.mongodb.net/myflixdb?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology: true});
+//mongoose.connect('mongodb+srv://myflixdb:Myflixdb2112%21@cluster0.mongodb.net/myFlixDB?retryWrites=true', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://myflixdbadmin:myflixdb1234@myflixdb-qkqkp.mongodb.net/myflixdb?retryWrites=true&w=majority',{useNewUrlParser:true})
+.then(()=>{
+  console.log("connected")
+})
+
 
 // Middleware functions
 app.use(express.static("public"));
 app.use(morgan("common")); // Logging with Morgan
 app.use(bodyParser.json()); // Using bodyParser
+app.use(cors());
 var auth = require('./auth')(app)
 
 //Error handling middleware functions
@@ -264,8 +269,8 @@ app.delete(
   }
 );
 
-// Listen for requests on port 2030
-var port = process.env.PORT || 3000;
+// Listen for requests on port 5000
+var port = process.env.PORT || 5000;
 app.listen(port, "0.0.0.0", function() {
-console.log("Listening on Port 3000");
+console.log("Listening on Port 5000");
 });
