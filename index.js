@@ -15,7 +15,7 @@ app.use(cors());
 const { check, validationResult } = require('express-validator');
 
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true,useUnifiedTopology: true});
-mongoose.connect('mongodb+srv://myflixdbadmin:Myflixdb2112!@myflixdb-qkqkp.mongodb.net/myflixdb?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://myflixdb:Myflixdb2112%!%@myflixdb-enhrc.mongodb.net/myflixdb?retryWrites=true&w=majority', {useNewUrlParser: true,useUnifiedTopology: true});
 
 // Middleware functions
 app.use(express.static("public"));
