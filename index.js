@@ -25,7 +25,7 @@ mongoose.connect('mongodb+srv://myflixdbadmin:myflixdb1234@myflixdb-qkqkp.mongod
 app.use(express.static("public"));
 app.use(morgan("common")); // Logging with Morgan
 app.use(bodyParser.json()); // Using bodyParser
-app.use(cors());
+app.use(cors(*));
 var auth = require('./auth')(app)
 
 //Error handling middleware functions
