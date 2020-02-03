@@ -11,6 +11,7 @@ const Users = Models.User;
 const passport = require('passport');
 require('./passport');
 const cors = require('cors');
+let allowedOrigins = [`http://localhost:${port}`, ...process.env.ALLOWED_ORIGINS.split(' ')];
 const { check, validationResult } = require('express-validator');
 
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true,useUnifiedTopology: true});
@@ -25,7 +26,17 @@ mongoose.connect('mongodb+srv://myflixdbadmin:myflixdb1234@myflixdb-qkqkp.mongod
 app.use(express.static("public"));
 app.use(morgan("common")); // Logging with Morgan
 app.use(bodyParser.json()); // Using bodyParser
-app.use(cors(*));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      // If a specific origin is not found on the list of allowed origins.
+      let message = `The CORS policy for this application does not allow access from origin: ${origin}`;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 var auth = require('./auth')(app)
 
 //Error handling middleware functions
@@ -73,7 +84,6 @@ function(req, res) {
 
 app.get(
   "/movies",
-  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.find()
       .then((movies) => {
