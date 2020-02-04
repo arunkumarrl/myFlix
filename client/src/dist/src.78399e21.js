@@ -33603,20 +33603,32 @@ function (_React$Component) {
   _inherits(MainView, _React$Component);
 
   function MainView() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    var _temp;
+
     _classCallCheck(this, MainView);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MainView).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(MainView)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      movies: []
+    }, _temp));
   }
 
   _createClass(MainView, [{
     key: "componentDidMount",
     // One of the "hooks" available in a React Component
     value: function componentDidMount() {
-      var _this = this;
+      var _this2 = this;
 
       _axios.default.get('<my-api-endpoint/movies>').then(function (response) {
         // Assign the result to the state
-        _this.setState({
+        _this2.setState({
           movies: response.data
         });
       }).catch(function (error) {
@@ -33733,7 +33745,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51368" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51570" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
