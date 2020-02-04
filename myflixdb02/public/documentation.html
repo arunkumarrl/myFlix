@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>myFlix</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+  </head>
+  <body>
+    <h1>myFlix</h1>
+    <p>This app will provide you information about different movies, directors, and genres. You will be able to sign up, update your personal information, and create a list of your favorite movies.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Endpoint URL</th>
+          <th>Type</th>
+          <th>Request body</th>
+          <th>Response body</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get a list of all movies</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            JSON object holding data about all the movies, containing the title, genre and director's name property. Example:<br>
+            {<br>"Title": "The Terminator",<br> "Description"....": <br> "Genre": "Sci-Fi",<br> Name :"James Cameron"<br>},
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a single movie by title</td>
+          <td>/movies/[Title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>A JSON object holding data about a single movie, containing a
+            title, description, genre property, director property and image.
+            Example:
+            {
+               "Genre": {
+                   "Name": "Thriller",
+                   "Description": "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involvesexcitement and suspense in the audience."
+               },
+               "Director": {
+                   "Name": "Jonathan Demme",
+                   "Bio": "Robert Jonathan Demme was an American director, producer, and screenwriter.",
+                   "Birth": "1944",
+                   "Death": "2017"
+               },
+               "Actors": [],
+               "_id": "5d9bab4307ab30237c44c353",
+               "Title": "Silence of the Lambs",
+               "Description": "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
+               "ImagePath": "silenceofthelambs.png",
+               "Featured": true
+             }
+           </p>
+         </td>
+        </tr>
+        <tr>
+          <td>Get data about a movie genre by genre name</td>
+          <td>/movies/genres/[Name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            JSON object holding data about a movie genre.
+            Example:
+            {
+              "Name": "Action",
+                "Description": "Action film is a film genre in which the protagonist or protagonists are thrust into a series of events that typically include violence, extended fighting, physical feats, and frantic chases."
+              }
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a director by name</td>
+          <td>/movies/directors/[Name]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            JSON object holding data about a director.
+            Example:
+            {"Name": "Jon Favreau",
+                "Bio": "Jonathan Favreau is an American actor, director, producer, screenwriter, and chef.",
+                "Birth": "1966"
+              }
+          </td>
+        </tr>
+        <tr>
+          <td>Add a new user</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>
+            JSON object holding data about the user to add. Example:<br>
+              { <br>"Username": "arunkumar_rl",<br>"Password": "arunkumarrl",<br> "Email":
+              "arunkumar_rl@yahoo.com", <br>"Birthday": "1988-06-16" <br>}
+          </td>
+          <td>
+            JSON object holding data about the user that was add, including an ID. Example:<br>
+              {<br> "Favorites": [],<br> "_id": "5d7cc5e9a3d1dc4290f30036",<br> "Username": "arunkumar_rl",<br> "Password": "arunkumarrl",<br> "Email": "arunkumar_rl@yahoo.com",<br> "Birthday": "1988-06-16T00:00:00.000Z",<br>}
+          </td>
+        </tr>
+        <tr>
+          <td>Update a user information</td>
+          <td>/users/[Username]</td>
+          <td>PUT</td>
+          <td>
+            JSON object holding data about the user to add. Example:<br>
+            {<br> "Username": "arunkumar_rl"(required),<br> "Password": "arunkumarrl"(required),<br> "Email": "arunkumar_rl.yahoo.com"(required),<br> "Birthday": "1988-06-16"<br>}
+          </td>
+          <td>JSON object holding data that was newly updated.</td>
+        </tr>
+        <tr>
+          <td>Add a movie to the list of favorites</td>
+          <td>/users/[Username]/Movies/[MovieID]</td>
+          <td>POST</td>
+          <td>
+            JSON object holding data about a movie which users like to add to their list of favorites.
+          </td>
+          <td>
+            JSON object holding data about the movie that was added to the list of favorite.
+          </td>
+        </tr>
+        <tr>
+          <td>Delete a movie from the list of favorites</td>
+          <td>/users/[Username]/Movies/[MovieID]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A text message indicating the movie that was removed from the list of favorites.
+          </td>
+        </tr>
+        <tr>
+          <td>Remove a user</td>
+          <td>/users/[Username]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>A text message indicating the user who was removed</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
