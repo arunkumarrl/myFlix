@@ -18,7 +18,7 @@ const { check, validationResult } = require('express-validator');
 mongoose.connect('mongodb+srv://myflixdbadmin:myflixdb1234@myflixdb-qkqkp.mongodb.net/myFlixDB?retryWrites=true&w=majority',{useNewUrlParser:true})
 .then(()=>{
   console.log("connected")
-})
+});
 
 
 // Middleware functions
@@ -26,7 +26,7 @@ app.use(express.static("public"));
 app.use(morgan("common")); // Logging with Morgan
 app.use(bodyParser.json()); // Using bodyParser
 app.use(cors());
-var auth = require('./auth')(app)
+var auth = require('./auth')(app);
 
 //Error handling middleware functions
 
