@@ -1,5 +1,4 @@
 /node_modules
-myflixdb01/client/.cache
-myflixdb01/client/node_modules
-myflixdb01/.cach
-myflixdb01/client/dist
+/client/.cache
+/client/node_modules
+.cache
