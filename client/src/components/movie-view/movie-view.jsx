@@ -1,6 +1,10 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import Media from 'react-bootstrap/Media';
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import './movie-view.scss';
+import axios from 'axios';
 
 export class MovieView extends React.Component {
   constructor() {
@@ -8,6 +12,28 @@ export class MovieView extends React.Component {
     this.state = {};
   }
 
+  addToFavorites(e) {
+    const { movie } = this.props;
+    e.preventDefault();
+    axios.post(
+      `https://myflixdb01.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`,
+      { username: localStorage.getItem('user') },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      })
+      .then(res => {
+        alert(`${movie.Title} successfully added to your favorites`);
+      })
+      // .then(res => {
+      //   window.open(`/users/${localStorage.getItem('user')}`)
+      // })
+      .then(res => {
+        document.location.reload(true);
+      })
+      .catch(error => {
+        alert(`${movie.Title} not added to your favorites` + error)
+      });
+  }
   render() {
     const { movie } = this.props;
     if (!movie) return null;
@@ -43,7 +69,35 @@ export class MovieView extends React.Component {
             Back to Movies
           </Button>
         </Link>
-      </div>
+
+        <Button className="add-favorite-btn mt-4" onClick={e => this.addToFavorites(e)}>
+          <span className="d-flex align-items-center">
+            <i className="material-icons heart mr-3">   Add to my favorites</i>
+          </span>
+        </Button>
+      </div >
     );
   }
 }
+MovieView.propTypes = {
+  movie: PropTypes.shape({
+    _id: PropTypes.string,
+    Title: PropTypes.string,
+    ReleaseYear: PropTypes.string,
+    ImagePath: PropTypes.string,
+    Description: PropTypes.string,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string,
+      Description: PropTypes.string
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string,
+      Bio: PropTypes.string,
+      Birth: PropTypes.string,
+      Death: PropTypes.string
+    }),
+    Featured: PropTypes.boolean,
+    Actors: PropTypes.array
+  })
+    .isRequired
+};

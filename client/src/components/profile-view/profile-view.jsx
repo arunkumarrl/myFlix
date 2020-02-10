@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import './profile-view.scss'
+import './profile-view.scss';
 
+import { setMovies } from '../../actions/actions';
+import { setUserProfile } from '../../actions/actions';
 import { Link } from "react-router-dom";
 
 export class ProfileView extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      username: null,
-      password: null,
-      email: null,
-      birthday: null,
-      userData: null,
-      favouriteMovies: []
-    };
+    this.state = {};
+  }
+
+  deleteFavorite(movieId) {
+    axios.delete(`https://myflixdb01.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movieId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      .then(res => {
+        document.location.reload(true);
+      })
+      .then(res => {
+        alert('Movie successfully deleted from favorites');
+      })
+
+      .catch(e => {
+        alert('Movie could not be deleted from favorites ' + e)
+      });
   }
 
   componentDidMount() {
@@ -73,7 +87,6 @@ export class ProfileView extends React.Component {
 
     return (
       <Card className="profile-view" style={{ width: '32rem' }}>
-        <Card.Img className="profile-logo" variant="top" src={profileLogo} />
         <Card.Body>
           <Card.Title className="profile-title">My Profile</Card.Title>
           <ListGroup className="list-group-flush" variant="flush">
@@ -83,20 +96,20 @@ export class ProfileView extends React.Component {
             <ListGroup.Item>Birthday: {birthday && birthday.slice(0, 10)}</ListGroup.Item>
             <ListGroup.Item>Favourite Movies:
              <div>
-                {favouriteMovies.length === 0 &&
+                {favouriteMovies === 0 &&
                   <div className="value">No Favourite Movies have been added</div>
                 }
-                {favouriteMovies.length > 0 &&
+                {favouriteMovies > 0 &&
                   <ul>
-                    {favouriteMovies.map(favoriteMovie =>
+                    {favouriteMovies.map(favouriteMovie =>
                       (<li key={favoriteMovie}>
                         <p className="favouriteMovies">
-                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favouriteMovie).Title}
                         </p>
-                        <Link to={`/movies/${favoriteMovie}`}>
+                        <Link to={`/movies/${favouriteMovie}`}>
                           <Button size="sm" variant="info">Open</Button>
                         </Link>
-                        <Button variant="secondary" size="sm" onClick={(event) => this.deleteMovieFromFavs(event, favoriteMovie)}>
+                        <Button variant="secondary" size="sm" onClick={(event) => this.deleteMovieFromFavs(event, favouriteMovie)}>
                           Delete
                         </Button>
                       </li>)
@@ -119,3 +132,42 @@ export class ProfileView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return { movies: state.movies, userProfile: state.userProfile }
+};
+const mapDispatchToProps = {
+  setMovies,
+  setUserProfile
+}
+// #4
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileView);
+ProfileView.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      Title: PropTypes.string,
+      ReleaseYear: PropTypes.string,
+      ImagePath: PropTypes.string,
+      Description: PropTypes.string,
+      Genre: PropTypes.shape({
+        Name: PropTypes.string,
+        Description: PropTypes.string
+      }),
+      Director: PropTypes.shape({
+        Name: PropTypes.string,
+        Bio: PropTypes.string,
+        Birth: PropTypes.string,
+        Death: PropTypes.string
+      }),
+      Featured: PropTypes.boolean,
+      Actors: PropTypes.array
+    })
+  ),
+  userProfile: PropTypes.shape({
+    _id: PropTypes.string,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Birthday: PropTypes.date
+  }).isRequired
+};

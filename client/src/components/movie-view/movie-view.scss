@@ -1,9 +1,47 @@
-.movie-title {
-	color: #03A9F4;
-	font-weight: 500;
-	font-size: 25px;
+$primary-color: #522266;
+$secondary-color: #ececec;
+$font-family: 'Alegreya Sans', sans-serif;
+
+.material-icons {
+  color: lighten($primary-color, 60%);
 }
 
-.label{
-	visibility: hidden;
+.material-icons:hover {
+  color: $primary-color;
+}
+
+.genre-link, 
+.director-link {
+  color: $primary-color;
+  
+}
+
+.genre-link:hover, 
+.director-link:hover {
+  color: lighten($primary-color, 20%);
+  text-decoration: none !important;
+}
+
+.add-favorite-btn {
+  background-color: $secondary-color;
+  color: $primary-color;
+  border-color: $secondary-color;
+  border-radius: 24px;
+}
+
+.add-favorite-btn:hover {
+  color: $primary-color;
+  border-color: $secondary-color;
+  background-color: darken($secondary-color, 20%);
+}
+
+.add-favorite-btn:focus,
+.add-favorite-btn:active {
+  outline: none !important;
+  box-shadow: none;
+  background-color: darken($secondary-color, 20%);
+}
+
+.heart {
+  color: $primary-color; 
 }
