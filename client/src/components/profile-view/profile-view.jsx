@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactDOM from 'react-dom';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -24,10 +23,10 @@ export class ProfileView extends React.Component {
     axios.delete(`https://myflixdb01.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movieId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
-      .then(res => {
+      .then(() => {
         document.location.reload(true);
       })
-      .then(res => {
+      .then(() => {
         alert('Movie successfully deleted from favorites');
       })
 
@@ -70,10 +69,10 @@ export class ProfileView extends React.Component {
     axios.delete(`https://myflixdb01.herokuapp.com/users/${localStorage.getItem('user')}/Favourites/${favoriteMovie}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     })
-      .then(response => {
+      .then(() => {
         this.getUser(localStorage.getItem('token'));
       })
-      .catch(event => {
+      .catch(() => {
         alert('Oops... something went wrong...');
       });
   }
@@ -160,13 +159,14 @@ ProfileView.propTypes = {
         Birth: PropTypes.string,
         Death: PropTypes.string
       }),
-      Featured: PropTypes.boolean,
-      Actors: PropTypes.array
+      Featured: PropTypes.boolean
     })
   ),
   userProfile: PropTypes.shape({
     _id: PropTypes.string,
+    FavoriteMovies: PropTypes.arrays,
     Username: PropTypes.string,
+    Email: PropTypes.string,
     Password: PropTypes.string,
     Birthday: PropTypes.date
   }).isRequired

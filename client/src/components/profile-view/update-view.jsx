@@ -21,7 +21,7 @@ export function UpdateView(props) {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    axios.put(`https://myflixdb01.herokuapp.com//update/:Username`, {
+    axios.put(`https://myflixdb01.herokuapp.com/users/${user}`, {
       Username: username,
       Password: password,
       Birthday: birthday,
@@ -96,5 +96,5 @@ export function UpdateView(props) {
 }
 
 UpdateView.propTypes = {
-  user: PropTypes.string.isRequired
+  user: PropTypes.shape.isRequired
 }

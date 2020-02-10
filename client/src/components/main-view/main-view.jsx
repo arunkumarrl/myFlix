@@ -130,7 +130,7 @@ class MainView extends React.Component {
 
     if (!user) {
       return (
-        <Router>
+        <Router basename="/client">
           <div className="main-view">
             <div className="d-flex bg-light shadow-sm p-3 mb-5">
               <h2 className="d-flex ml-2"> Welcome to myFlix </h2>
@@ -153,7 +153,7 @@ class MainView extends React.Component {
       );
     } else {
       return (
-        <Router>
+        <Router basename="/client">
           <Navbar sticky="top" bg="light" expand="lg" className="mb-3 shadow-sm p-3 mb-5">
             <Navbar.Brand href="http://localhost:1234/" className="navbar-brand">myFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -222,12 +222,12 @@ MainView.propTypes = {
         Birth: PropTypes.string,
         Death: PropTypes.string
       }),
-      Featured: PropTypes.boolean,
-      Actors: PropTypes.array
+      Featured: PropTypes.boolean
     })
   ),
   userProfile: PropTypes.shape({
     _id: PropTypes.string,
+    FavoriteMovies: PropTypes.arrays,
     Username: PropTypes.string,
     Password: PropTypes.string,
     Birthday: PropTypes.date

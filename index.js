@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
@@ -25,6 +26,7 @@ mongoose.connect('mongodb+srv://myflixdbadmin:myflixdb1234@myflixdb-qkqkp.mongod
 
 // Middleware functions
 app.use(express.static("public"));
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 app.use(morgan("common")); // Logging with Morgan
 app.use(bodyParser.json()); // Using bodyParser
 app.use(cors());
@@ -38,10 +40,11 @@ app.use(function (err, req, res, next) {
 });
 
 // Homepage
-
-app.get("/", (req, res) => {
-  res.send("Welcome to yourFlix! ");
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
+
+
 // Gets the list of data about ALL users
 app.get('/users',
   passport.authenticate("jwt", { session: false }),

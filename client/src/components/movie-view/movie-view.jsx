@@ -16,7 +16,7 @@ export class MovieView extends React.Component {
     const { movie } = this.props;
     e.preventDefault();
     axios.post(
-      `https://myflixdb01.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`,
+      `https://myflixdb01.herokuapp.com/users/username/Movies/${movie._id}`,
       { username: localStorage.getItem('user') },
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -72,7 +72,7 @@ export class MovieView extends React.Component {
 
         <Button className="add-favorite-btn mt-4" onClick={e => this.addToFavorites(e)}>
           <span className="d-flex align-items-center">
-            <i className="material-icons heart mr-3">   Add to my favorites</i>
+            <i className="mr-3">   Add to my favorites</i>
           </span>
         </Button>
       </div >
@@ -98,6 +98,12 @@ MovieView.propTypes = {
     }),
     Featured: PropTypes.boolean,
     Actors: PropTypes.array
-  })
-    .isRequired
+  }),
+  userProfile: PropTypes.shape({
+    _id: PropTypes.string,
+    FavoriteMovies: PropTypes.arrays,
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Birthday: PropTypes.date
+  }).isRequired
 };
